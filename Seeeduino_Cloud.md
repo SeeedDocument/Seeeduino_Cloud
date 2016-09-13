@@ -94,7 +94,17 @@ This is the ICSP connection for the ATmega32U4, it is located in the standard IC
 This is an I-PEX Connector for an external antenna.
 * **Pins**
 It is not possible to access the I/O pins of the Atheros AR9331. All I/O lines are tied to the ATmega32U4. 
-
+Each of the 20 digital pins on the 32U4 can be used as an input or output, using pinMode(), digitalWrite(), and digitalRead() functions. They operate at 5 volts. Each pin can provide or receive a maximum of 40 mA and has an internal pull-up resistor (disconnected by default) of 20-50 kOhms.
+In addition, some pins have specialized functions:
+* Serial: 0 (RX) and 1 (TX). Used to receive (RX) and transmit (TX) TTL serial data using the ATmega32U4 hardware serial capability. Note that on the Seeeduino Cloud, the Serial class refers to USB (CDC) communication; for TTL serial on pins 0 and 1, use the Serial1 class. The hardware serials of the ATmega32U4 and the AR9331 on the Seeeduino Cloud are connected together and are used to communicate between the two processors. As is common in Linux systems, on the serial port of the AR9331 is exposed the console for access to the system, this means that you can access to the programs and tools offered by Linux from your sketch.
+TWI: 2 (SDA) and 3 (SCL). Support TWI communication using the Wire library.
+External Interrupts: 3 (interrupt 0), 2 (interrupt 1), 0 (interrupt 2), 1 (interrupt 3) and 7 (interrupt 4). These pins can be configured to trigger an interrupt on a low value, a rising or falling edge, or a change in value. See the attachInterrupt() function for details. Is not recommended to use pins 0 and 1 as interrupts because they are the also the hardware serial port used to talk with the Linux processor. Pin 7 is connected to the AR9331 processor and it may be used as handshake signal in future. Is recommended to be careful of possible conflicts if you intend to use it as interrupt.
+PWM: 3, 5, 6, 9, 10, 11, and 13. Provide 8-bit PWM output with the analogWrite() function.
+SPI: on the ICSP header. These pins support SPI communication using the SPI library. Note that the SPI pins are not connected to any of the digital I/O pins as they are on the Uno, They are only available on the ICSP connector. This means that if you have a shield that uses SPI, but does NOT have a 6-pin ICSP connector that connects to the Seeeduino Cloud's 6-pin ICSP header, the shield will not work. The SPI pins are also connected to the AR9331 gpio pins, where it has been implemented in software the SPI interface. This means that the ATMega32u4 and the AR9331 can also communicate using the SPI protocol.
+LED: 13. There is a built-in LED driven by digital pin 13. When the pin is HIGH value, the LED is on, when the pin is LOW, it's off.
+There are several other status LEDs on the Seeeduino Cloud, indicating power, WLAN connection, WAN connection and USB.
+Analog Inputs: A0 - A5, A6 - A11 (on digital pins 4, 6, 8, 9, 10, and 12). The Seeeduino Cloud has 12 analog inputs, labeled A0 through A11, all of which can also be used as digital i/o. Pins A0-A5 appear in the same locations as on the Uno; inputs A6-A11 are on digital i/o pins 4, 6, 8, 9, 10, and 12 respectively. Each analog input provide 10 bits of resolution (i.e. 1024 different values). By default the analog inputs measure from ground to 5 volts, though is it possible to change the upper end of their range using the AREF pin and the analogReference() function.
+AREF. Reference voltage for the analog inputs. Used with analogReference().
 
 ##Getting Started
 
@@ -360,9 +370,12 @@ void sendData() {
     char c = xively.read();
     Serial.write(c);
   }
- 
 }
+
 ```
+
+![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/images/500px-SeeeduinoCloud_Sketch_xively.png?raw=true)
+
 
 ####Example 3: Log Data to USB flash
 
@@ -433,9 +446,8 @@ String getTimeStamp() {
 
 ```
 
+![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/images/500px-SeeeduinoCloud_Sketch_USB.png?raw=true)
 
-
-###Update Firmware  
 
 ###IoT Server Configuration
 The IoT Server page allows you to upload data to IoT websites such as Xively while you only need to write sensor data to serial port.
@@ -500,7 +512,7 @@ void loop() {
     
 ##FAQ
 
-* What is the difference between Seeeduino CLoud and LinkIt Smart 7688 DUO?
-
+* What is Yun Bridge Library? 
+Yun Bridge Library is the mechanism used in Arduino Yun for communication between a MPU and a MCU. Seeeduino Cloud supports Yun Bridge Library to make it easy for Arduino users to build their IoT projects. 
 
 ##Help us to make it better
