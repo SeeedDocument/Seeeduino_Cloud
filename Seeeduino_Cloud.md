@@ -19,7 +19,7 @@ Seeeduino Cloud is a microcontroller board based on [Dragino WiFi IoT module HE]
 * Smart House
 * Learning 
 
-We are looking forward to your interesting projects!
+Here is some funny project for your reference.
 
 |Simple Wi-Fi Messager|Send data to Google Docs|Solar Panel Monitoring System|
 |--------|----------|---------|
@@ -158,43 +158,289 @@ A few seconds after the upload finishes, you should see the LED(D13) on the boar
 
 The Seeeduino Cloud has a WiFi interface and a LAN port. Either of them has IP address that can be used for internet connection and device management.
 
-#####Wi-Fi AP Mode
+#####1. Wi-Fi AP Mode
 When you power ON the Seeeduino Cloud for the first time, there will be an unsecure WiFi network called SeeeduinoCloud-AXXXX shown in wifi connections.
 You can connect your computer to this network as shown below. Your computer will get an ip of this network **192.168.240.xxx**. The Seeeduino Cloud has a default ip address of **192.168.240.1**.
 
-#####Wi-Fi STA Mode
+#####2. Wi-Fi STA Mode
 After connect SeeeduinoCloud-AXXXX, type 172.31.255.254 or 192.168.240.1 in browser search box and you will connect to Seeeduino Cloud with web UI. The default password is "seeeduino", then click LOG IN.
+
+![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/images/seeeduino_cloud_login.png?raw=true)
+
 Click "SYSTEM", select your Wi-Fi network, enter the password and click "CONFIGURE & RESTART". 
 
-![]()
+![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/images/seeeduino_cloud_sta.png?raw=true)
 
-#####Onboard Ethernet
+#####3. Onboard Ethernet
 When you connect Seeeduino Cloud to a wired network with an ethernet cable, it will try to connect automatically via DHCP. The board will show up on the ports menu just as it would over WiFi.
 
 
 ####Terminal
+
 You could access the terminal of Seeeduino Cloud via SSH to Program or configure on ATHEROS AR9331 side.
+
 * Download a SSH client such as [putty](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html)
 * Use the IP address of Seeeduino Cloud and run SSH client.
-* ```
+
+```
 username: root
 password: seeeduino
 ```
 
-![]()
+![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/images/seeeduino_cloud_terminal.png?raw=true)
 
-####
+####other things
 
 
 
-#####Yun Bridge Library
+###Yun Bridge Library
 
-#####Update Firmware  
+The Bridge Library simplifies the communication between the Arduino Board and Dragino HE. Bridge commands from the AVR (Arduino Board) are interpreted by Python on the HE. 
+Its role is to 
+* execute programs on the GNU/Linux side when asked by Arduino, 
+* provide a shared storage space for sharing data like sensor readings between the Arduino and the Internet 
+* receive commands from the Internet and pass them directly to the Arduino. 
+There are detailed explanations and lots of examples to show how to use Bridge on the [Arduino Official Website](https://www.arduino.cc/en/Reference/YunBridgeLibrary). Following are some examples that use Bridge Library.
 
-#####IoT Server Configuration
+####Example 1: Say hello to Linux
+
+This example is a hello test between the Arduino and Seeeduino Cloud. The example can be found on the Arduino IDE--> File --> Examples --> Bridge --> ConsoleRead. A tutorial of this example can be found [here](https://www.arduino.cc/en/Tutorial/ConsoleRead). You can see the code below with some additional details to understand it with the Seeeduino Cloud:
+
+```
+#include <Console.h>
+ 
+String name;
+ 
+void setup() {
+  // Initialize Console and wait for port to open:
+  Bridge.begin();
+  Console.begin();
+ 
+  // Wait for Console port to connect
+  while (!Console);
+ 
+  Console.println("Hi, what's your name?");
+}
+ 
+void loop() {
+  if (Console.available() > 0) {
+    char c = Console.read(); // read the next char received
+    // look for the newline character, this is the last character in the string
+    if (c == '\n') {
+      //print text with the name received
+      Console.print("Hi ");
+      Console.print(name);
+      Console.println("! Nice to meet you!");
+      Console.println();
+      // Ask again for name and clear the old name
+      Console.println("Hi, what's your name?");
+      name = "";  // clear the name string
+    }
+    else {  	 // if the buffer is empty Cosole.read() returns -1
+      name += c; // append the read char from Console to the name string
+    }
+  }
+}
+
+```
+
+####Example 2: Upload data to IoT Server
+
+This example shows how to log data to the public IoT server “Xively”. The example is a modified version (change Serial to Console to fit for different Arduino Board and debug over WiFi) from Arduino IDE--> File --> Examples --> Bridge --> XivelyClient. Tutorial of this example can be referred [here](https://www.arduino.cc/en/Tutorial/YunXivelyClient). 
+Before uploading the sketch, make sure:
+
+* The Seeeduino Cloud already has internet access. 
+* Input your FEED ID and API KEY according to the Tutorial. Note, The FEED ID should be within double quotation marks "" .
+
+```
+/*
+  Xively sensor client with Strings
+ 
+ This sketch connects an analog sensor to Xively,
+ using an Arduino Yún.
+ 
+ created 15 March 2010
+ updated 27 May 2013
+ by Tom Igoe
+ 
+ http://arduino.cc/en/Tutorial/YunXivelyClient
+ 
+ */
+ 
+ 
+// include all Libraries needed:
+#include <Process.h>
+#include "passwords.h"      // contains my passwords, see below
+ 
+/*
+  NOTE: passwords.h is not included with this repo because it contains my passwords.
+ You need to create it for your own version of this application.  To do so, make
+ a new tab in Arduino, call it passwords.h, and include the following variables and constants:
+ 
+ #define APIKEY        "foo"                  // replace your pachube api key here
+ #define FEEDID        0000                   // replace your feed ID
+ #define USERAGENT     "my-project"           // user agent is the project name
+ */
+ 
+ 
+// set up net client info:
+const unsigned long postingInterval = 60000;  //delay between updates to xively.com
+unsigned long lastRequest = 0;      // when you last made a request
+String dataString = "";
+ 
+void setup() {
+  // start serial port:
+  Bridge.begin();
+  Serial.begin(9600);
+ 
+  while (!Serial);   // wait for Network Serial to open
+  Serial.println("Xively client");
+ 
+  // Do a first update immediately
+  updateData();
+  sendData();
+  lastRequest = millis();
+}
+ 
+void loop() {
+  // get a timestamp so you can calculate reading and sending intervals:
+  long now = millis();
+ 
+  // if the sending interval has passed since your
+  // last connection, then connect again and send data:
+  if (now - lastRequest >= postingInterval) {
+    updateData();
+    sendData();
+    lastRequest = now;
+  }
+}
+ 
+void updateData() {
+  // convert the readings to a String to send it:
+  dataString = "Temperature,";
+  dataString += random(10) + 20;
+  // add pressure:
+  dataString += "\nPressure,";
+  dataString += random(5) + 100;
+}
+ 
+// this method makes a HTTP connection to the server:
+void sendData() {
+  // form the string for the API header parameter:
+  String apiString = "X-ApiKey: ";
+  apiString += APIKEY;
+ 
+  // form the string for the URL parameter:
+  String url = "https://api.xively.com/v2/feeds/";
+  url += FEEDID;
+  url += ".csv";
+ 
+  // Send the HTTP PUT request
+ 
+  // Is better to declare the Process here, so when the
+  // sendData function finishes the resources are immediately
+  // released. Declaring it global works too, BTW.
+  Process xively;
+  Serial.print("\n\nSending data... ");
+  xively.begin("curl");
+  xively.addParameter("-k");
+  xively.addParameter("--request");
+  xively.addParameter("PUT");
+  xively.addParameter("--data");
+  xively.addParameter(dataString);
+  xively.addParameter("--header");
+  xively.addParameter(apiString);
+  xively.addParameter(url);
+  xively.run();
+  Serial.println("done!");
+ 
+  // If there's incoming data from the net connection,
+  // send it out the Serial:
+  while (xively.available() > 0) {
+    char c = xively.read();
+    Serial.write(c);
+  }
+ 
+}
+```
+
+####Example 3: Log Data to USB flash
+
+This example shows how to log data to a USB flash. The sketch used in this example is same as [here](http://wiki.dragino.com/index.php?title=Arduino_Yun_examples#Log_sensor_data_to_USB_flash). And the source code can be found there.
+The Seeeduino Cloud will auto mount the USB flash to directory /mnt/sda1. And the sketch will append the sensor data to the file /mnt/sda1/data/datalog.csv. So make sure there is such a file in the USB flash before running the sketch.
+
+```
+
+#include <FileIO.h>     //FileIO class allow user to operate Linux file system
+#include <Console.h>    //Console class provide the interactive between IDE and Yun Shield
+void setup() {
+  // Initialize the Console
+  Bridge.begin();
+  Console.begin();
+  FileSystem.begin();
+  while(!Console);   // wait for Serial port to connect.
+  Console.println("Filesystem datalogger\n");
+}
+void loop () {
+  // make a string that start with a timestamp for assembling the data to log:
+  String dataString;
+  dataString += getTimeStamp();
+  dataString += " , ";
+  // read three sensors and append to the string:
+  for (int analogPin = 0; analogPin < 3; analogPin++) {
+    int sensor = analogRead(analogPin);
+    dataString += String(sensor);
+    if (analogPin < 2) {
+      dataString += ",";    // separate the values with a comma
+    }
+  }
+  // open the file. note that only one file can be open at a time,
+  // so you have to close this one before opening another.
+  // The USB flash card is mounted at "/mnt/sda1" by default
+  File dataFile = FileSystem.open("/mnt/sda1/data/datalog.csv", FILE_APPEND);
+  // if the file is available, write to it:
+  if (dataFile) {
+    dataFile.println(dataString);
+    dataFile.close();
+    // print to the serial port too:
+    Console.println(dataString);
+  }  
+  // if the file isn't open, pop up an error:
+  else { 
+    Console.println("error opening datalog.csv");
+  } 
+  delay(15000);  //Write every 15 seconds
+}
+// getTimeStamp function return a string with the time stamp
+// Yun Shield will call the Linux "date" command and get the time stamp
+String getTimeStamp() {
+  String result;
+  Process time;
+  // date is a command line utility to get the date and the time 
+  // in different formats depending on the additional parameter 
+  time.begin("date");
+  time.addParameter("+%D-%T");   // parameters: D for the complete date mm/dd/yy
+  //              T for the time hh:mm:ss
+  time.run();   // run the command
+  // read the output of the command
+  while(time.available()>0) {
+    char c = time.read();
+    if(c != '\n')
+      result += c;
+  }
+  return result;
+}
+
+```
+
+
+
+###Update Firmware  
+
+###IoT Server Configuration
 The IoT Server page allows you to upload data to IoT websites such as Xively while you only need to write sensor data to serial port.
 
-![]()
+![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/images/500px-SeeeduinoCloud_IoTServer.png?raw=true)
 
 and the sketch is shown below. 
 
