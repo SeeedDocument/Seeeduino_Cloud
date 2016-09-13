@@ -1,5 +1,12 @@
-#Seeeduino Cloud
---------
+---
+title: Seeeduino Cloud
+category: Arduino
+bzurl: https://www.seeedstudio.com/Seeeduino-Cloud-Arduino-Yun-compatible-openWRT-controller-p-2123.html
+oldwikiname: Seeeduino_Cloud
+prodimagename: seeeduino_cloud_Cover.jpg
+sku: 1020100021
+---
+
 ##Introduction
 
 ![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/images/seeeduino_cloud_cover.jpg?raw=true)
@@ -227,7 +234,22 @@ void loop() {
 ##Resources
 
 * **Schematic**
-    * [Seeeduino Lotus Eagle file](
+    * [Seeeduino Cloud Eagle file](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/resources/Seeeduino_Cloud_v1.0.zip)
+    * [Seeeduino Cloud PDF file](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/resources/Seeeduino_Cloud_PDF.pdf)
+    
+* **Firmware**
+    * [Seeeduino Cloud Firmware](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/resources/Seeeduino_Cloud_Firmware--v1.3.4--20140815-1100.zip)
+    
+* **References**
+    * [Getting Started with Arduino](https://www.arduino.cc/en/Guide/HomePage)
+    * [Arduino Language Reference](https://www.arduino.cc/en/Reference/HomePage)
+    * [Download the Arduino Software(IDE)](https://www.arduino.cc/en/Main/Software)
+    * [Arduino FAQ](https://www.arduino.cc/en/Main/FAQ)
+    * [Arduino Introduction](https://www.arduino.cc/en/guide/introduction)
+    * [Wikipedia page for Arduino](https://en.wikipedia.org/wiki/Arduino)
+    * [Arduino Yun Wiki](https://www.arduino.cc/en/Main/ArduinoBoardYun)
+    * [Getting started with Arduino Yun](https://www.arduino.cc/en/Guide/ArduinoYun#toc2)
+    * [Yun Bridge Library](https://www.arduino.cc/en/Reference/YunBridgeLibrary)
     
     
 ##FAQ
