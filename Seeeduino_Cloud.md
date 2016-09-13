@@ -2,7 +2,7 @@
 --------
 ##Introduction
 
-![]()
+![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/images/seeeduino_cloud_cover.jpg?raw=true)
 
 Seeeduino Cloud is a microcontroller board based on [Dragino WiFi IoT module HE](http://www.dragino.com/products/linux-module/item/87-he.html) and ATmega32u4. HE is a high performance, low cost 150M, 2.4G WiFi module which means “core” in Chinese and with an Open Source OpenWrt system inside. Seeeduino Cloud is also an Arduino compatible board, 100% compatible to Grove, shield and IDEs(Arduino IDE 1.5.3 and later). Except for the normal interface of Arduino, Seeeduino Cloud has built-in Ethernet and WiFi support, a USB-A port which makes it very suitable for those prototype design that need network connection and mass storage. It is also a good idea to make Seeeduino Cloud to be an IoT gateway.
 
@@ -10,10 +10,15 @@ Seeeduino Cloud is a microcontroller board based on [Dragino WiFi IoT module HE]
 
 * Internet of Things  
 * Smart House
-* Router
 * Learning 
 
 We are looking forward to your interesting projects!
+
+|Simple Wi-Fi Messager|Send data to Google Docs|Solar Panel Monitoring System|
+|--------|----------|---------|
+|![](https://cdn.instructables.com/FC3/FOVR/HQVLC501/FC3FOVRHQVLC501.MEDIUM.jpg)|![](https://cdn.instructables.com/FEK/CKBT/HO7XFET3/FEKCKBTHO7XFET3.MEDIUM.jpg)|![](https://cdn.instructables.com/FQI/J0IT/IIDJEIC0/FQIJ0ITIIDJEIC0.MEDIUM.jpg)|
+|[Make it Now](http://www.instructables.com/id/Arduino-Yun-Messager/)|[Make it Now](http://www.instructables.com/id/Google-Docs-and-the-Arduino-Y%C3%BAn/)|[Make it Now](http://www.instructables.com/id/Arduino-Yun-Solar-Panel-Monitoring-System/)|
+
 
 ##Features
 
@@ -36,7 +41,7 @@ Because Seeeduino Cloud has two processors, this section shows the characteristi
 |Clock Speed|400MHz|
 |RAM|64MB|
 |Flash|16MB|
-|OS|Open Source OpenWrt|
+|OS|OpenWrt|
 |Interfaces|2 x RJ45, 1 x USB Host, 1 x UART, 14 multiplex GPIOs|
 |Power|3.3V Power Input|
 |WiFi|Support 150M 2.4Ghz WiFi, 802.11 b/g/n|
@@ -59,11 +64,11 @@ Because Seeeduino Cloud has two processors, this section shows the characteristi
 
 The images below show an overview of Seeeduino Cloud hardware features. The pin-out and alternate functions of various pins of Seeeduino Cloud are shown in the pin-out diagram. This could be used as a quick reference.
 
-![]()
+![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/images/seeeduino_cloud_hardware.png?raw=true)
   
 
 * **RJ45 Ethernet Port**
-The LAN Port is connected to ATHEROS AR9331 and has its own IP address that can be used for internet connection and device management.
+The LAN Port is connected to ATHEROS AR9331 and has its own IP address that can be used for Internet connection and device management.
 * **USB Input**
 USB Port is used to connect the board to your PC for programming and for powering up. Micro USB is the ubiquitous version of USB, found in most Android phones, and other devices. You probably have dozens of these cables laying around your house.
 * **USB HOST**
@@ -80,6 +85,8 @@ SeeedStudio has a variety of sensors/devices that can make use of this I2C or UA
 This is the ICSP connection for the ATmega32U4, it is located in the standard ICSP/SPI position for Arduino Uno, Due, Mega, and Leonardo compatible hardware (e.g. shields) that may use this connector. The SPI pins in this port: MISO, SCK, and MOSI, are also connected to digital pins 12, 13, and 11 respectively just like those of the Arduino Uno.
 * **I-PEX Connector**
 This is an I-PEX Connector for an external antenna.
+* **Pins**
+It is not possible to access the I/O pins of the Atheros AR9331. All I/O lines are tied to the ATmega32U4. 
 
 
 ##Getting Started
@@ -118,23 +125,23 @@ There is no need to install drivers for Ubuntu 10.0.4 and later, but make sure p
 
 Open the LED blink example sketch: File > Examples >01.Basics > Blink.
 
-[](https://www.arduino.cc/en/uploads/Guide/UNO_Load_Blink.jpg)
+![](https://www.arduino.cc/en/uploads/Guide/UNO_Load_Blink.jpg)
 
 ####Select your board type and port
 
 You'll need to select the entry in the Tools > Board menu that corresponds to your Arduino or Genuino board.
 
-[](https://www.arduino.cc/en/uploads/Guide/YUN_SelBoard.jpg)
+![](https://www.arduino.cc/en/uploads/Guide/YUN_SelBoard.jpg)
 
 Select the serial device of the board from the Tools | Serial Port menu. This is likely to be COM3 or higher (COM1 and COM2 are usually reserved for hardware serial ports). To find out, you can disconnect your board and re-open the menu; the entry that disappears should be the Arduino or Genuino board. Reconnect the board and select that serial port. When your board is properly configured on WiFi, you will find it in the Port list, as in our screenshot.
 
-[](https://www.arduino.cc/en/uploads/Guide/YUN_SelPort.jpg)
+![](https://www.arduino.cc/en/uploads/Guide/YUN_SelPort.jpg)
 
 ####Upload the program
 
 Now, simply click the "Upload" button in the environment. Wait a few seconds - you should see the RX and TX leds on the board flashing. If the upload is successful, the message "Done uploading." will appear in the status bar.
 
-[](https://www.arduino.cc/en/uploads/Guide/UNO_Upload.png)
+![](https://www.arduino.cc/en/uploads/Guide/UNO_Upload.png)
 
 A few seconds after the upload finishes, you should see the LED(D13) on the board start to blink (in green). If it does, congratulations! You’ve gotten Arduino up-and-running. If you have problems, please see the troubleshooting suggestions.
 
@@ -219,6 +226,13 @@ void loop() {
 
 ##Resources
 
+* **Schematic**
+    * [Seeeduino Lotus Eagle file](
+    
+    
 ##FAQ
+
+* What is the difference between Seeeduino CLoud and LinkIt Smart 7688 DUO?
+
 
 ##Help us to make it better
