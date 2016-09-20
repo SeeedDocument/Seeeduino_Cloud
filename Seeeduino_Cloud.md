@@ -1,14 +1,15 @@
 ---
 title: Seeeduino Cloud
-category: Arduino
+category: Arduino,IoT
 bzurl: https://www.seeedstudio.com/Seeeduino-Cloud-Arduino-Yun-compatible-openWRT-controller-p-2123.html
 oldwikiname: Seeeduino_Cloud
 prodimagename: seeeduino_cloud_Cover.jpg
+surveyurl: https://www.surveymonkey.com/r/Seeeduino_Cloud
 sku: 1020100021
 ---
 
 
-![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/images/seeeduino_cloud_cover.jpg?raw=true)
+![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/img/seeeduino_cloud_cover.jpg?raw=true)
 
 Seeeduino Cloud is a microcontroller board based on [Dragino WiFi IoT module HE](http://www.dragino.com/products/linux-module/item/87-he.html) and ATmega32u4. HE is a high performance, low cost 150M, 2.4G WiFi module which means “core” in Chinese and with an Open Source OpenWrt system inside. Seeeduino Cloud is also an Arduino compatible board, 100% compatible to Grove, shield and IDEs(Arduino IDE 1.5.3 and later). Except for the normal interface of Arduino, Seeeduino Cloud has built-in Ethernet and WiFi support, a USB-A port which makes it very suitable for those prototype design that need network connection and mass storage. It is also a good idea to make Seeeduino Cloud to be an IoT gateway.
 
@@ -70,7 +71,7 @@ Because Seeeduino Cloud has two processors, this section shows the characteristi
 
 The images below show an overview of Seeeduino Cloud hardware features. The pin-out and alternate functions of various pins of Seeeduino Cloud are shown in the pin-out diagram. This could be used as a quick reference.
 
-![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/images/seeeduino_cloud_hardware.png?raw=true)
+![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/img/seeeduino_cloud_hardware.png?raw=true)
   
 
 * **RJ45 Ethernet Port**
@@ -172,11 +173,11 @@ You can connect your computer to this network as shown below. Your computer will
 #####2. Wi-Fi STA Mode
 After connect SeeeduinoCloud-AXXXX, type 172.31.255.254 or 192.168.240.1 in browser search box and you will connect to Seeeduino Cloud with web UI. The default password is "seeeduino", then click LOG IN.
 
-![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/images/seeeduino_cloud_login.png?raw=true)
+![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/img/seeeduino_cloud_login.png?raw=true)
 
 Click "SYSTEM", select your Wi-Fi network, enter the password and click "CONFIGURE & RESTART". 
 
-![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/images/seeeduino_cloud_sta.png?raw=true)
+![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/img/seeeduino_cloud_sta.png?raw=true)
 
 #####3. Onboard Ethernet
 When you connect Seeeduino Cloud to a wired network with an ethernet cable, it will try to connect automatically via DHCP. The board will show up on the ports menu just as it would over WiFi.
@@ -194,7 +195,7 @@ username: root
 password: seeeduino
 ```
 
-![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/images/seeeduino_cloud_terminal.png?raw=true)
+![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/img/seeeduino_cloud_terminal.png?raw=true)
 
 
 ###Yun Bridge Library
@@ -271,7 +272,7 @@ Before uploading the sketch, make sure:
  
  */
  
- 
+
 // include all Libraries needed:
 #include <Process.h>
 #include "passwords.h"      // contains my passwords, see below
@@ -368,7 +369,7 @@ void sendData() {
 
 ```
 
-![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/images/500px-SeeeduinoCloud_Sketch_xively.png?raw=true)
+![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/img/500px-SeeeduinoCloud_Sketch_xively.png?raw=true)
 
 
 ####Example 3: Log Data to USB flash
@@ -440,13 +441,13 @@ String getTimeStamp() {
 
 ```
 
-![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/images/500px-SeeeduinoCloud_Sketch_USB.png?raw=true)
+![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/img/500px-SeeeduinoCloud_Sketch_USB.png?raw=true)
 
 
 ###IoT Server Configuration
 The IoT Server page allows you to upload data to IoT websites such as Xively while you only need to write sensor data to serial port.
 
-![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/images/500px-SeeeduinoCloud_IoTServer.png?raw=true)
+![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/img/500px-SeeeduinoCloud_IoTServer.png?raw=true)
 
 and the sketch is shown below. 
 
@@ -486,11 +487,11 @@ void loop() {
 ##Resources
 
 * **Schematic**
-    * [Seeeduino Cloud Eagle file](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/resources/Seeeduino_Cloud_v1.0.zip)
-    * [Seeeduino Cloud PDF file](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/resources/Seeeduino_Cloud_PDF.pdf)
+    * [Seeeduino Cloud Eagle file](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/res/Seeeduino_Cloud_v1.0.zip)
+    * [Seeeduino Cloud PDF file](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/res/Seeeduino_Cloud_PDF.pdf)
     
 * **Firmware**
-    * [Seeeduino Cloud Firmware](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/resources/Seeeduino_Cloud_Firmware--v1.3.4--20140815-1100.zip)
+    * [Seeeduino Cloud Firmware](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/res/Seeeduino_Cloud_Firmware--v1.3.4--20140815-1100.zip)
     
 * **References**
     * [Getting Started with Arduino](https://www.arduino.cc/en/Guide/HomePage)
@@ -509,5 +510,3 @@ void loop() {
 * What is Yun Bridge Library? 
 
 Yun Bridge Library is the mechanism used in Arduino Yun for communication between a MPU and a MCU. Seeeduino Cloud supports Yun Bridge Library to make it easy for Arduino users to build their IoT projects. 
-
-##Help us to make it better
