@@ -140,23 +140,23 @@ There is no need to install drivers for Ubuntu 10.0.4 and later, but make sure p
 
 Open the LED blink example sketch: File > Examples >01.Basics > Blink.
 
-![](https://www.arduino.cc/en/uploads/Guide/UNO_Load_Blink.jpg)
+![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/img/UNO_Load_Blink.jpg?raw=true)
 
 ####Select your board type and port
 
 You'll need to select the entry in the Tools > Board menu that corresponds to your Arduino or Genuino board.
 
-![](https://www.arduino.cc/en/uploads/Guide/YUN_SelBoard.jpg)
+![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/img/YUN_SelBoard.jpg?raw=true)
 
 Select the serial device of the board from the Tools | Serial Port menu. This is likely to be COM3 or higher (COM1 and COM2 are usually reserved for hardware serial ports). To find out, you can disconnect your board and re-open the menu; the entry that disappears should be the Arduino or Genuino board. Reconnect the board and select that serial port. When your board is properly configured on WiFi, you will find it in the Port list, as in our screenshot.
 
-![](https://www.arduino.cc/en/uploads/Guide/YUN_SelPort.jpg)
+![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/img/YUN_SelPort.jpg?raw=true)
 
 ####Upload the program
 
 Now, simply click the "Upload" button in the environment. Wait a few seconds - you should see the RX and TX leds on the board flashing. If the upload is successful, the message "Done uploading." will appear in the status bar.
 
-![](https://www.arduino.cc/en/uploads/Guide/UNO_Upload.png)
+![](https://github.com/SeeedDocument/Seeeduino_Cloud/blob/master/img/UNO_Upload.png?raw=true)
 
 A few seconds after the upload finishes, you should see the LED(D13) on the board start to blink (in green). If it does, congratulations! You’ve gotten Arduino up-and-running. If you have problems, please see the troubleshooting suggestions.
 
